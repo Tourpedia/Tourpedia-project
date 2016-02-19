@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('google-http-client-jackson2-1.16.0-rc.jar'))
