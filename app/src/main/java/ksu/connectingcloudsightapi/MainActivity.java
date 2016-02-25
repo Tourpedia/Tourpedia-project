@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static final JsonFactory JSON_FACTORY = new JacksonFactory();
+
+
+    connectionThread cThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -35,28 +39,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        CSApi api = new CSApi(
-                HTTP_TRANSPORT,
-                JSON_FACTORY,
-                API_KEY
-        );
-        CSPostConfig imageToPost = CSPostConfig.newBuilder()
-                .withRemoteImageUrl("http://i.imgur.com/xHGpFRL.gif")
-                .build();
 
-        try {
-            CSPostResult portResult = api.postImage(imageToPost);
+        //TODO: They say using AsyncTask is better
+        cThread=new connectionThread();
+        cThread.start();
 
-            System.out.println("Post result: " + portResult);
 
-            Thread.sleep(30000);
-
-            CSGetResult scoredResult = api.getImage(portResult);
-
-            System.out.println(scoredResult);}
-        catch ( Exception e) {
-            System.out.println("Error");
-        }
     }
 
     @Override
@@ -80,4 +68,51 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    private class connectionThread extends Thread{
+
+
+        @Override
+        public void run() {
+            //super.run();
+
+            CSApi api = new CSApi(
+                    HTTP_TRANSPORT,
+                    JSON_FACTORY,
+                    API_KEY
+            );
+            CSPostConfig imageToPost = CSPostConfig.newBuilder()
+                    .withRemoteImageUrl("http://i.imgur.com/xHGpFRL.gif")
+                    .build();
+
+            try {
+
+                CSPostResult portResult = api.postImage(imageToPost);
+
+                // System.out.println("Post result: " + portResult);
+                Log.d("print","Post result: " + portResult);
+
+                Thread.sleep(30000);
+
+                CSGetResult scoredResult = api.getImage(portResult);
+
+              //  System.out.println(scoredResult)
+                Log.d("print",""+scoredResult);
+
+
+                ;}
+            catch ( Exception e) {
+                //System.out.println("Error");
+                Log.d("print", "Post result exception: "+e.fillInStackTrace());
+
+            }
+
+        }
+    }
+
+
+
+
 }
