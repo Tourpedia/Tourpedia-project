@@ -20,11 +20,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile project(':google-api-client-1.4.1-beta')
-    compile project(':google-http-client-1.16.0-rc')
-    compile project(':google-http-client-jackson2-1.16.0-rc')
+    //compile project(':google-api-client-1.4.1-beta')
+    //  compile project(':google-http-client-1.16.0-rc')
+    //  compile project(':google-http-client-jackson2-1.16.0-rc')
+    compile files('Libs/google-http-client-jackson-1.20.0.jar')
+    compile files('Libs/google-http-client/1.20.0/google-http-client-1.20.0.jar')
+    compile files('Libs/google-http-client-jackson2/1.20.0/google-http-client-jackson2-1.20.0.jar')
+    compile files('Libs/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar')
 }

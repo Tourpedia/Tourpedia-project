@@ -1,1 +1,1 @@
-include ':app', ':google-api-client-1.4.1-beta', ':google-http-client-1.16.0-rc', ':google-http-client-jackson2-1.16.0-rc'
+include ':app'

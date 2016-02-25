@@ -1,2 +1,4 @@
 configurations.create("default")
 artifacts.add("default", file('google-http-client-1.16.0-rc.jar'))
+dependencies {
+}
